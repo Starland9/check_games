@@ -7,13 +7,19 @@ enum CardColor { red, black }
 enum CardType { clubs, diamonds, hearts, spades }
 
 class CardComponent extends SpriteComponent
-    with HasGameRef<Checkgames>, DragCallbacks {
+    with
+        HasGameRef<Checkgames>,
+        DragCallbacks,
+        DoubleTapCallbacks,
+        TapCallbacks {
   final CardType type;
   final int value;
+  final Function(CardComponent)? onTap;
 
   CardComponent({
     required this.type,
     required this.value,
+    this.onTap,
   });
 
   Vector2 get assetSheetSize => isBack ? Vector2(176, 124) : Vector2(440, 372);
@@ -25,6 +31,7 @@ class CardComponent extends SpriteComponent
   bool isBack = true;
   bool played = false;
   bool inDrag = false;
+  Vector2 pointerPosition = Vector2.zero();
 
   @override
   Future<void> onLoad() async {
@@ -32,14 +39,23 @@ class CardComponent extends SpriteComponent
     return super.onLoad();
   }
 
+  // @override
+  // void update(double dt) {
+  //   _loadImages();
+  //   super.update(dt);
+  // }
+
   @override
   void onDragStart(DragStartEvent event) {
     inDrag = true;
+    priority = 1;
+    pointerPosition = position - event.canvasPosition;
     super.onDragStart(event);
   }
 
   @override
   void onDragEnd(DragEndEvent event) {
+    priority = 0;
     inDrag = false;
     super.onDragEnd(event);
   }
@@ -47,22 +63,40 @@ class CardComponent extends SpriteComponent
   @override
   void onDragUpdate(DragUpdateEvent event) {
     if (!inDrag) return;
-    position.x = event.canvasStartPosition.x - event.delta.x;
-    position.y = event.canvasStartPosition.y;
-    print("drag");
+    position = event.canvasStartPosition + pointerPosition;
     super.onDragUpdate(event);
   }
 
+  @override
+  void onDoubleTapDown(DoubleTapDownEvent event) {
+    toggleBack();
+    super.onDoubleTapDown(event);
+  }
+
+  @override
+  void onTapDown(TapDownEvent event) {
+    onTap?.call(this);
+    super.onTapDown(event);
+  }
+
   Future<void> _loadImages() async {
-    final path = isBack ? 'cards/back.png' : 'cards/$typeString.png';
-    sprite = await Sprite.load(
-      path,
-      srcPosition: Vector2(
-        (value - 1) % assetsPerRow * assetOneSize.x,
-        (value - 1) ~/ assetsPerRow * assetOneSize.y,
-      ),
-      srcSize: assetOneSize,
-    );
+    if (isBack) {
+      sprite = await Sprite.load(
+        'cards/back.png',
+        srcPosition: Vector2(color == CardColor.red ? 88 : 0, 0),
+        srcSize: assetOneSize,
+      );
+      return;
+    } else {
+      sprite = await Sprite.load(
+        'cards/$typeString.png',
+        srcPosition: Vector2(
+          (value - 1) % assetsPerRow * assetOneSize.x,
+          (value - 1) ~/ assetsPerRow * assetOneSize.y,
+        ),
+        srcSize: assetOneSize,
+      );
+    }
   }
 
   Future<void> toggleBack([bool? force]) async {
