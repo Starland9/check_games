@@ -2,13 +2,18 @@ import 'package:check_games/src/checkgames.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Checkgames().backgroundColor(),
+      backgroundColor: Checkgames(context: context).backgroundColor(),
       // appBar: AppBar(
       //   title: const Text('Check Games'),
       //   backgroundColor: Checkgames().backgroundColor(),
@@ -22,7 +27,10 @@ class Home extends StatelessWidget {
           children: [
             Expanded(
               child: GameWidget(
-                game: Checkgames(),
+                game: Checkgames(
+                  context: context,
+                  onGameOver: () => setState(() {}),
+                ),
               ),
             ),
             // const SizedBox(height: 16),

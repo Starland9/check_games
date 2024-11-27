@@ -1,33 +1,56 @@
 import 'dart:async';
-import 'dart:math';
 
+import 'package:check_games/src/components/board.dart';
 import 'package:check_games/src/components/card.dart';
-import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
+import 'package:check_games/src/components/deck.dart';
+import 'package:check_games/src/components/hand.dart';
+import 'package:check_games/src/utils/dialog_utils.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
 class Checkgames extends FlameGame with TapDetector {
+  final BuildContext context;
+  final VoidCallback? onGameOver;
+
+  Checkgames({
+    required this.context,
+    this.onGameOver,
+  });
+
   @override
   Color backgroundColor() => const Color(0xff008080);
 
-  late final PositionComponent topHand;
-  late final PositionComponent bottomHand;
-  late final Map<PositionComponent, int> handCount = {};
-  late PositionComponent currentHand = topHand;
+  late final Hand topHand;
+  late final Hand bottomHand;
+  late Hand currentHand = topHand;
+  late final Deck deck;
+  late final Board board;
 
   final List<CardComponent> cards = [];
 
   @override
   FutureOr<void> onLoad() async {
     await images.loadAllImages();
+    await _initBoard();
     await _fillCards();
     await _initHands();
 
-    _shareForAll();
+    _test();
 
     super.onLoad();
+  }
+
+  Future<void> _test() async {
+    for (var i = 0; i < 8; i++) {
+      await deck.shareToHand(currentHand);
+      toggleHand();
+    }
+  }
+
+  Future<void> _initBoard() async {
+    board = Board();
+    await add(board);
   }
 
   @override
@@ -42,119 +65,79 @@ class Checkgames extends FlameGame with TapDetector {
         final card = CardComponent(
           value: i,
           type: type,
-          onTap: _onCardTap,
         );
-        card.position = deckPosition;
         cards.add(card);
       }
     }
 
     cards.shuffle();
+    deck = Deck(cards: cards);
+    await add(deck);
     await addAll(cards);
   }
 
-  Vector2 get deckPosition => Vector2(
-        size.x - CardComponent.assetOneSize.x - 10,
-        size.y / 2 - CardComponent.assetOneSize.y / 2,
-      );
-
-  Vector2 get centerPosition => Vector2(
-        size.x / 2 - CardComponent.assetOneSize.x / 2,
-        size.y / 2 - CardComponent.assetOneSize.y / 2,
-      );
-
-  // void _toggleHand() {
-  //   if (currentHand == topHand) {
-  //     currentHand = bottomHand;
-  //   } else {
-  //     currentHand = topHand;
-  //   }
-  // }
-
   _initHands() async {
-    final handSize = Vector2(
-      CardComponent.assetOneSize.x * 4,
-      CardComponent.assetOneSize.y,
-    );
-
-    topHand = PositionComponent(
+    topHand = Hand(
+      name: "Bot",
       position: Vector2(0, 10),
-      size: handSize,
     );
 
-    bottomHand = PositionComponent(
+    bottomHand = Hand(
+      name: "Landry",
       position: Vector2(
         0,
         size.y - CardComponent.assetOneSize.y - 10,
       ),
-      size: handSize,
     );
 
     await addAll([topHand, bottomHand]);
-    handCount[topHand] = 0;
-    handCount[bottomHand] = 0;
-    currentHand = topHand;
+    currentHand = bottomHand;
   }
 
-  Future<CardComponent> _shareCardTo(
-    CardComponent card,
-    Vector2 dest, [
-    bool closed = false,
-    double speed = 0.2,
-  ]) async {
-    final effect = MoveToEffect(
-      dest,
-      LinearEffectController(speed),
-    )..removeOnFinish = true;
-    final rotationEffect = RotateEffect.to(
-      -pi * 4,
-      LinearEffectController(speed),
-    )..removeOnFinish = true;
-
-    card.priority += 1;
-    card.add(rotationEffect);
-    card.add(effect);
-    await card.toggleBack(closed);
-    await effect.completed;
-    await rotationEffect.completed;
-    card.played = true;
-    return card;
+  void toggleHand() {
+    currentHand = currentHand == topHand ? bottomHand : topHand;
   }
 
-  _shareToHand(PositionComponent hand) async {
-    final count = handCount[hand] ?? 0;
-    final goodScale = Vector2.all(0.5);
-
-    final goodPosition = Vector2(
-        (CardComponent.assetOneSize.x * count * goodScale.x) % hand.size.x,
-        hand.position.y +
-            (count ~/ 8 * CardComponent.assetOneSize.y * goodScale.y));
-
-    await _shareCardTo(lastCard..scale = goodScale, goodPosition);
-    handCount.update(hand, (value) => value + 1, ifAbsent: () => 1);
-  }
-
-  _shareForAll() async {
-    await _shareCardTo(lastCard, centerPosition);
-    for (var i = 0; i < 20; i++) {
-      for (var hand in [topHand, bottomHand]) {
-        await _shareToHand(hand);
-      }
+  void playCard(CardComponent card) async {
+    final isGoodHand = _checkHand(card);
+    if (!isGoodHand) {
+      DialogUtils.showAlertDialog(
+        context: context,
+        content: "Ce n'est pas à toi de jouer !!!",
+      );
+      return;
     }
+
+    final isGoodCard = _checkCard(card);
+    if (!isGoodCard) {
+      DialogUtils.showAlertDialog(
+        context: context,
+        content: "Cette carte n'est pas compatible avec la carte en jeu !!!",
+      );
+      return;
+    }
+
+    await currentHand.shareAtCenter(card);
+    if (currentHand.cards.isEmpty) {
+      _gameOver();
+    }
+    toggleHand();
   }
 
-  List<CardComponent> get deckCards =>
-      cards.where((card) => !card.played).toList();
+  bool _checkCard(CardComponent card) {
+    return card.isCompatibleWith(board.currentCard);
+  }
 
-  CardComponent get lastCard => deckCards.first;
+  bool _checkHand(CardComponent card) {
+    return card.hand == currentHand;
+  }
 
-  _onCardTap(CardComponent card) {
-    final scaleEffect = ScaleEffect.to(
-      Vector2.all(1),
-      LinearEffectController(0.2),
+  void _gameOver() async {
+    await DialogUtils.showAlertDialog(
+      context: context,
+      content: "Game Over !!!\n${currentHand.name} a gagné",
     );
-    card.add(scaleEffect);
-    card.priority += 4;
-    _shareCardTo(card, centerPosition);
+
+    onGameOver?.call();
   }
 }

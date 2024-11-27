@@ -1,25 +1,25 @@
+import 'dart:math';
+
 import 'package:check_games/src/checkgames.dart';
+import 'package:check_games/src/components/hand.dart';
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
 
 enum CardColor { red, black }
 
 enum CardType { clubs, diamonds, hearts, spades }
 
+enum CardContainer { hand, board, deck }
+
 class CardComponent extends SpriteComponent
-    with
-        HasGameRef<Checkgames>,
-        DragCallbacks,
-        DoubleTapCallbacks,
-        TapCallbacks {
+    with HasGameRef<Checkgames>, DoubleTapCallbacks, TapCallbacks {
   final CardType type;
   final int value;
-  final Function(CardComponent)? onTap;
 
   CardComponent({
     required this.type,
     required this.value,
-    this.onTap,
   });
 
   Vector2 get assetSheetSize => isBack ? Vector2(176, 124) : Vector2(440, 372);
@@ -30,41 +30,14 @@ class CardComponent extends SpriteComponent
 
   bool isBack = true;
   bool played = false;
-  bool inDrag = false;
   Vector2 pointerPosition = Vector2.zero();
+  CardContainer container = CardContainer.deck;
+  Hand? hand;
 
   @override
   Future<void> onLoad() async {
     await _loadImages();
     return super.onLoad();
-  }
-
-  // @override
-  // void update(double dt) {
-  //   _loadImages();
-  //   super.update(dt);
-  // }
-
-  @override
-  void onDragStart(DragStartEvent event) {
-    inDrag = true;
-    priority = 1;
-    pointerPosition = position - event.canvasPosition;
-    super.onDragStart(event);
-  }
-
-  @override
-  void onDragEnd(DragEndEvent event) {
-    priority = 0;
-    inDrag = false;
-    super.onDragEnd(event);
-  }
-
-  @override
-  void onDragUpdate(DragUpdateEvent event) {
-    if (!inDrag) return;
-    position = event.canvasStartPosition + pointerPosition;
-    super.onDragUpdate(event);
   }
 
   @override
@@ -74,8 +47,13 @@ class CardComponent extends SpriteComponent
   }
 
   @override
-  void onTapDown(TapDownEvent event) {
-    onTap?.call(this);
+  void onTapDown(TapDownEvent event) async {
+    switch (container) {
+      case CardContainer.hand:
+        game.playCard(this);
+        break;
+      default:
+    }
     super.onTapDown(event);
   }
 
@@ -109,4 +87,36 @@ class CardComponent extends SpriteComponent
       : CardColor.red;
 
   String get typeString => type.toString().split('.').last;
+
+  Future<void> shareTo(
+    Vector2 dest, {
+    bool closed = false,
+    double speed = 0.5,
+  }) async {
+    final effect = MoveToEffect(
+      dest,
+      LinearEffectController(speed),
+    )..removeOnFinish = true;
+    final rotationEffect = RotateEffect.to(
+      -pi * 2,
+      LinearEffectController(speed),
+    )..removeOnFinish = true;
+
+    add(rotationEffect);
+    add(effect);
+    await toggleBack(closed);
+    await effect.completed;
+    await rotationEffect.completed;
+    played = true;
+  }
+
+  Future<void> shareToHand(Hand hand) async {
+    await shareTo(hand.position);
+  }
+
+  bool isCompatibleWith(CardComponent other) {
+    return color == other.color && value == other.value && other.type == type ||
+        other.type == type ||
+        other.value == value;
+  }
 }
