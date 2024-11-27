@@ -74,6 +74,6 @@ class Deck extends PositionComponent with HasGameRef<Checkgames>, TapCallbacks {
   }
 
   CardComponent get card {
-    return cards.last;
+    return cards.first;
   }
 }

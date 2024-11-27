@@ -1,4 +1,5 @@
 import 'package:check_games/src/checkgames.dart';
+import 'package:check_games/src/models/rules.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
@@ -10,10 +11,20 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  late final Rules basicRules;
+
+  @override
+  void initState() {
+    basicRules = Rules();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Checkgames(context: context).backgroundColor(),
+      backgroundColor: Checkgames(
+        context: context,
+      ).backgroundColor(),
       // appBar: AppBar(
       //   title: const Text('Check Games'),
       //   backgroundColor: Checkgames().backgroundColor(),
@@ -32,6 +43,7 @@ class _HomeState extends State<Home> {
                   game: Checkgames(
                     context: context,
                     onGameOver: () => setState(() {}),
+                    rules: basicRules,
                   ),
                 ),
               ),
