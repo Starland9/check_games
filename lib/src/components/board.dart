@@ -3,12 +3,20 @@ import 'dart:async';
 import 'package:check_games/src/checkgames.dart';
 import 'package:check_games/src/components/card.dart';
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 
-class Board extends PositionComponent with HasGameRef<Checkgames> {
+class Board extends PositionComponent
+    with HasGameRef<Checkgames>, DoubleTapCallbacks {
   final List<CardComponent> cards = [];
 
   @override
+
+  /// Sets the position of the board at the center of the screen.
+  ///
+  /// The final position is calculated by subtracting half of the size of the
+  /// board asset from the center of the screen.
   FutureOr<void> onLoad() {
+    priority = 100;
     position = Vector2(
       game.size.x / 2 - CardComponent.assetOneSize.x / 2,
       game.size.y / 2 - CardComponent.assetOneSize.y / 2,
@@ -16,15 +24,27 @@ class Board extends PositionComponent with HasGameRef<Checkgames> {
     return super.onLoad();
   }
 
+  @override
+  void onDoubleTapDown(DoubleTapDownEvent event) {
+    refillDeck();
+    super.onDoubleTapDown(event);
+  }
+
   void addCard(CardComponent card) {
     cards.add(card);
-    card.priority = cards.length;
+    card.toggleBack(false);
     card.container = CardContainer.board;
+    _priorizeCards();
+  }
+
+  _priorizeCards() {
+    for (var card in cards) {
+      card.priority = cards.indexOf(card);
+    }
   }
 
   void removeCard(CardComponent card) {
     cards.remove(card);
-    card.priority = 0;
   }
 
   Future<void> refillDeck() async {

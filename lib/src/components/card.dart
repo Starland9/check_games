@@ -14,7 +14,7 @@ enum CardType { clubs, diamonds, hearts, spades }
 enum CardContainer { hand, board, deck }
 
 class CardComponent extends SpriteComponent
-    with HasGameRef<Checkgames>, DoubleTapCallbacks, TapCallbacks {
+    with HasGameRef<Checkgames>, TapCallbacks {
   final CardType type;
   final int value;
 
@@ -39,12 +39,6 @@ class CardComponent extends SpriteComponent
   Future<void> onLoad() async {
     await _loadImages();
     return super.onLoad();
-  }
-
-  @override
-  void onDoubleTapDown(DoubleTapDownEvent event) {
-    toggleBack();
-    super.onDoubleTapDown(event);
   }
 
   @override
@@ -93,6 +87,7 @@ class CardComponent extends SpriteComponent
     Vector2 dest, {
     bool closed = false,
     double speed = 0.5,
+    bool withSound = true,
   }) async {
     final effect = MoveToEffect(
       dest,
@@ -103,10 +98,10 @@ class CardComponent extends SpriteComponent
       LinearEffectController(speed),
     )..removeOnFinish = true;
 
-    FlameAudio.play('sfx/card_share.mp3');
+    if (withSound) FlameAudio.play('sfx/card_share.mp3');
+
     add(rotationEffect);
     add(effect);
-    await toggleBack(closed);
     await effect.completed;
     await rotationEffect.completed;
     played = true;

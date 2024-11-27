@@ -26,10 +26,13 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             Expanded(
-              child: GameWidget(
-                game: Checkgames(
-                  context: context,
-                  onGameOver: () => setState(() {}),
+              child: ClipRRect(
+                clipBehavior: Clip.hardEdge,
+                child: GameWidget(
+                  game: Checkgames(
+                    context: context,
+                    onGameOver: () => setState(() {}),
+                  ),
                 ),
               ),
             ),

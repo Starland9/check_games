@@ -37,6 +37,8 @@ class Hand extends PositionComponent with HasGameRef<Checkgames> {
         final card = cards[count];
         count++;
 
+        card.toggleBack(onTop);
+
         if (onTop) {
           card.position = Vector2(
             x * xSpace,
@@ -53,7 +55,6 @@ class Hand extends PositionComponent with HasGameRef<Checkgames> {
   }
 
   void addCard(CardComponent card) {
-    card.priority = cards.length;
     cards.add(card);
     card.hand = this;
     card.container = CardContainer.hand;
@@ -62,7 +63,6 @@ class Hand extends PositionComponent with HasGameRef<Checkgames> {
 
   void removeCard(CardComponent card) {
     cards.remove(card);
-    card.priority = 0;
     card.hand = null;
     _rearangeCards();
   }
@@ -78,6 +78,7 @@ class Hand extends PositionComponent with HasGameRef<Checkgames> {
   int get hashCode => name.hashCode;
 
   Future<void> shareAtCenter(CardComponent card) async {
+    card.toggleBack(false);
     inSharing = true;
     removeCard(card);
     game.board.addCard(card);

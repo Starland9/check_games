@@ -95,6 +95,9 @@ class Checkgames extends FlameGame with TapDetector {
   }
 
   void toggleHand() {
+    if (currentHand.cards.isEmpty) {
+      _gameOver();
+    }
     currentHand = currentHand == topHand ? bottomHand : topHand;
   }
 
@@ -118,10 +121,7 @@ class Checkgames extends FlameGame with TapDetector {
     }
 
     await currentHand.shareAtCenter(card);
-    if (currentHand.cards.isEmpty) {
-      _gameOver();
-    }
-    toggleHand();
+    await cpuPlay();
   }
 
   bool _checkCard(CardComponent card) {
@@ -139,5 +139,21 @@ class Checkgames extends FlameGame with TapDetector {
     );
 
     onGameOver?.call();
+  }
+
+  Future<void> cpuPlay() async {
+    toggleHand();
+    final playableCards = topHand.cards.where((card) {
+      return card.isCompatibleWith(board.currentCard);
+    }).toList();
+
+    if (playableCards.isEmpty) {
+      await deck.shareToHand(topHand);
+    } else {
+      final card = playableCards[0];
+      await topHand.shareAtCenter(card);
+    }
+
+    toggleHand();
   }
 }

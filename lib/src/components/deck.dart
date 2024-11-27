@@ -14,7 +14,7 @@ class Deck extends PositionComponent with HasGameRef<Checkgames>, TapCallbacks {
 
   @override
   void onLoad() async {
-    priority = 10;
+    priority = 100;
     _initPosition();
     _rearangeCards();
 
@@ -25,8 +25,8 @@ class Deck extends PositionComponent with HasGameRef<Checkgames>, TapCallbacks {
   @override
   void onTapDown(TapDownEvent event) async {
     if (inSharing) return;
-    shareToHand(game.currentHand);
-    game.toggleHand();
+    await shareToHand(game.currentHand);
+    await game.cpuPlay();
     super.onTapDown(event);
   }
 
@@ -38,7 +38,6 @@ class Deck extends PositionComponent with HasGameRef<Checkgames>, TapCallbacks {
   }
 
   void removeCard(CardComponent card) {
-    card.priority = 0;
     cards.remove(card);
   }
 
