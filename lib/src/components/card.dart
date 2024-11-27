@@ -5,6 +5,7 @@ import 'package:check_games/src/components/hand.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
+import 'package:flame_audio/flame_audio.dart';
 
 enum CardColor { red, black }
 
@@ -102,6 +103,7 @@ class CardComponent extends SpriteComponent
       LinearEffectController(speed),
     )..removeOnFinish = true;
 
+    FlameAudio.play('sfx/card_share.mp3');
     add(rotationEffect);
     add(effect);
     await toggleBack(closed);
