@@ -71,7 +71,7 @@ class Checkgames extends FlameGame with TapDetector {
     }
 
     cards.shuffle();
-    deck = Deck(cards: cards);
+    deck = Deck(cards: cards..reversed);
     await add(deck);
     await addAll(cards);
   }
