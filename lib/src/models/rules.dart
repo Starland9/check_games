@@ -3,26 +3,55 @@ import 'package:check_games/src/components/card.dart';
 import 'package:check_games/src/components/hand.dart';
 import 'package:flame/components.dart';
 
-class Rules extends Component with HasGameRef<Checkgames> {
+abstract class Rules extends Component with HasGameRef<Checkgames> {
   Future<void> apply(Hand player, CardComponent card) async {
-    await _applyByValue(player, card);
-  }
-
-  Future<void> _applyByValue(Hand player, CardComponent card) async {
-    print(card.value);
-    switch (card.value) {
-      case 7:
-        print("yooo");
-        final otherPlayer = player == gameRef.currentHand
-            ? gameRef.bottomHand
-            : gameRef.topHand;
-
-        for (var i = 0; i < 8; i++) {
-          await gameRef.deck.shareToHand(otherPlayer);
-        }
-
-        break;
-      default:
+    if (game.currentHand.cards.isEmpty && game.gameStarted) {
+      await game.gameOver();
+      return;
     }
+
+    if (await multiShareToOtherPlayer(player, card)) {
+      if (player.isCPU()) {
+        await game.cpuPlay();
+      }
+      if (otherPlayer(player).isCPU()) {
+        game.toggleHand(game.bottomHand);
+        return;
+      }
+    }
+
+    if (await stopOtherPlayer(player, card)) {
+      if (player.isCPU()) {
+        await game.cpuPlay();
+      }
+      return;
+    }
+    // return null;
+    game.toggleHand();
   }
+
+  Hand otherPlayer(Hand player) =>
+      player == game.topHand ? game.bottomHand : game.topHand;
+
+  bool isCardsCompatible(CardComponent card1, CardComponent card2);
+
+  Future<bool> multiShareToOtherPlayer(Hand player, CardComponent card) async {
+    if (multiShareWithValueAndCount.containsKey(card.value)) {
+      for (var i = 0; i < (multiShareWithValueAndCount[card.value] ?? 0); i++) {
+        await gameRef.deck.shareToHand(otherPlayer(player));
+      }
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> stopOtherPlayer(Hand player, CardComponent card) async {
+    return stopOtherPlayerValues.contains(card.value);
+  }
+
+  Map<int, int> get multiShareWithValueAndCount;
+
+  List<int> get stopOtherPlayerValues;
+
+  int get startCardsCount;
 }

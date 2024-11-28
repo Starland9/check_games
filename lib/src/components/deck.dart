@@ -26,6 +26,7 @@ class Deck extends PositionComponent with HasGameRef<Checkgames>, TapCallbacks {
   void onTapDown(TapDownEvent event) async {
     if (inSharing) return;
     await shareToHand(game.currentHand);
+    game.toggleHand();
     await game.cpuPlay();
     super.onTapDown(event);
   }

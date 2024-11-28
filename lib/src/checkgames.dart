@@ -14,11 +14,13 @@ class Checkgames extends FlameGame with TapDetector {
   final BuildContext context;
   final VoidCallback? onGameOver;
   final Rules? rules;
+  final bool withCpu;
 
   Checkgames({
     required this.context,
     this.onGameOver,
     this.rules,
+    this.withCpu = true,
   });
 
   @override
@@ -47,7 +49,7 @@ class Checkgames extends FlameGame with TapDetector {
   }
 
   Future<void> _test() async {
-    for (var i = 0; i < 8; i++) {
+    for (var i = 0; i < (rules?.startCardsCount ?? 4) * 2; i++) {
       await deck.shareToHand(currentHand);
       currentHand = currentHand == topHand ? bottomHand : topHand;
     }
@@ -84,7 +86,7 @@ class Checkgames extends FlameGame with TapDetector {
 
   _initHands() async {
     topHand = Hand(
-      name: "Bot",
+      name: "CPU",
       position: Vector2(0, 10),
     );
 
@@ -100,17 +102,11 @@ class Checkgames extends FlameGame with TapDetector {
     currentHand = bottomHand;
   }
 
-  Future<void> toggleHand() async {
+  Future<void> applyRule() async {
     if (gameStarted) await rules?.apply(currentHand, board.cards.last);
-
-    if (currentHand.cards.isEmpty && gameStarted) {
-      await _gameOver();
-    }
-
-    currentHand = currentHand == topHand ? bottomHand : topHand;
   }
 
-  void playCard(CardComponent card) async {
+  Future<void> playCard(CardComponent card) async {
     final isGoodHand = _checkHand(card);
     if (!isGoodHand) {
       DialogUtils.showAlertDialog(
@@ -130,18 +126,23 @@ class Checkgames extends FlameGame with TapDetector {
     }
 
     await currentHand.shareAtCenter(card);
-    await cpuPlay();
+    if (withCpu) {
+      await applyRule();
+      await cpuPlay();
+    } else {
+      await applyRule();
+    }
   }
 
   bool _checkCard(CardComponent card) {
-    return card.isCompatibleWith(board.currentCard);
+    return rules?.isCardsCompatible(card, board.currentCard) ?? true;
   }
 
   bool _checkHand(CardComponent card) {
     return card.hand == currentHand;
   }
 
-  Future<void> _gameOver() async {
+  Future<void> gameOver() async {
     await DialogUtils.showAlertDialog(
       context: context,
       content: "Game Over !!!\n${currentHand.name} a gagné",
@@ -151,18 +152,33 @@ class Checkgames extends FlameGame with TapDetector {
   }
 
   Future<void> cpuPlay() async {
-    await toggleHand();
-    final playableCards = topHand.cards.where((card) {
-      return card.isCompatibleWith(board.currentCard);
-    }).toList();
+    if (currentHand.isCPU()) {
+      final playableCards = currentHand.cards.where(
+        (card) {
+          return rules?.isCardsCompatible(card, board.currentCard) ?? true;
+        },
+      ).toList();
 
-    if (playableCards.isEmpty) {
-      await deck.shareToHand(topHand);
-    } else {
-      final card = playableCards[0];
-      await topHand.shareAtCenter(card);
+      if (playableCards.isEmpty) {
+        await deck.shareToHand(currentHand);
+      } else {
+        final card = playableCards[0];
+        await currentHand.shareAtCenter(card);
+        await applyRule();
+      }
     }
 
-    await toggleHand();
+    toggleHand(bottomHand);
+  }
+
+  void toggleHand([Hand? forceHand]) {
+    if (currentHand == topHand) {
+      currentHand = bottomHand;
+    } else {
+      currentHand = topHand;
+    }
+    if (forceHand != null) {
+      currentHand = forceHand;
+    }
   }
 }

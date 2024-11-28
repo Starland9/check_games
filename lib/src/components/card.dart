@@ -45,7 +45,7 @@ class CardComponent extends SpriteComponent
   void onTapDown(TapDownEvent event) async {
     switch (container) {
       case CardContainer.hand:
-        game.playCard(this);
+        await game.playCard(this);
         break;
       default:
     }
@@ -100,20 +100,13 @@ class CardComponent extends SpriteComponent
 
     if (withSound) FlameAudio.play('sfx/card_share.mp3');
 
-    add(rotationEffect);
-    add(effect);
+    await add(rotationEffect);
+    await add(effect);
     await effect.completed;
     await rotationEffect.completed;
-    played = true;
   }
 
   Future<void> shareToHand(Hand hand) async {
     await shareTo(hand.position);
-  }
-
-  bool isCompatibleWith(CardComponent other) {
-    return color == other.color && value == other.value && other.type == type ||
-        other.type == type ||
-        other.value == value;
   }
 }

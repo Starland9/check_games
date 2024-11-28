@@ -1,5 +1,5 @@
 import 'package:check_games/src/checkgames.dart';
-import 'package:check_games/src/models/rules.dart';
+import 'package:check_games/src/rules/basic_rules.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 
@@ -11,11 +11,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late final Rules basicRules;
-
   @override
   void initState() {
-    basicRules = Rules();
     super.initState();
   }
 
@@ -42,8 +39,8 @@ class _HomeState extends State<Home> {
                 child: GameWidget(
                   game: Checkgames(
                     context: context,
-                    onGameOver: () => setState(() {}),
-                    rules: basicRules,
+                    rules: BasicRules(),
+                    onGameOver: _onGameOver,
                   ),
                 ),
               ),
@@ -57,5 +54,9 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  void _onGameOver() {
+    setState(() {});
   }
 }

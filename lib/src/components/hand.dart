@@ -85,4 +85,15 @@ class Hand extends PositionComponent with HasGameRef<Checkgames> {
     await card.shareTo(game.board.position);
     inSharing = false;
   }
+
+  CardComponent? getCardByValue(int value) {
+    for (var card in cards) {
+      if (card.value == value) {
+        return card;
+      }
+    }
+    return null;
+  }
+
+  bool isCPU() => name == 'CPU' && game.withCpu;
 }
