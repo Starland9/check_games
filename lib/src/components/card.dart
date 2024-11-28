@@ -6,6 +6,7 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
 import 'package:flame_audio/flame_audio.dart';
+import 'package:flutter/material.dart';
 
 enum CardColor { red, black }
 
@@ -38,6 +39,7 @@ class CardComponent extends SpriteComponent
   @override
   Future<void> onLoad() async {
     await _loadImages();
+    size = assetOneSize;
     return super.onLoad();
   }
 
@@ -56,20 +58,35 @@ class CardComponent extends SpriteComponent
     if (isBack) {
       sprite = await Sprite.load(
         'cards/back.png',
-        srcPosition: Vector2(color == CardColor.red ? 88 : 0, 0),
+        srcPosition: Vector2(0, 0),
         srcSize: assetOneSize,
       );
       return;
     } else {
       sprite = await Sprite.load(
-        'cards/$typeString.png',
-        srcPosition: Vector2(
-          (value - 1) % assetsPerRow * assetOneSize.x,
-          (value - 1) ~/ assetsPerRow * assetOneSize.y,
-        ),
-        srcSize: assetOneSize,
+        "cards/$valueString" "_of_$typeString.png",
       );
     }
+  }
+
+  @override
+  void render(Canvas canvas) {
+    double borderWidth = 2;
+    Color borderColor = Colors.black87;
+
+    canvas.drawRect(
+      Rect.fromLTWH(
+        -borderWidth,
+        0,
+        size.x,
+        size.y,
+      ),
+      Paint()
+        ..color = borderColor
+        ..strokeWidth = borderWidth,
+    );
+
+    super.render(canvas);
   }
 
   Future<void> toggleBack([bool? force]) async {
@@ -81,7 +98,19 @@ class CardComponent extends SpriteComponent
       ? CardColor.black
       : CardColor.red;
 
-  String get typeString => type.toString().split('.').last;
+  String get typeString {
+    return type.toString().split('.').last;
+  }
+
+  String get valueString {
+    return switch (value) {
+      11 => 'jack',
+      12 => 'queen',
+      13 => 'king',
+      1 => 'ace',
+      _ => value.toString()
+    };
+  }
 
   Future<void> shareTo(
     Vector2 dest, {

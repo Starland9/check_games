@@ -1,7 +1,13 @@
+import 'dart:io';
+
 import 'package:check_games/src/checkgames.dart';
 import 'package:check_games/src/rules/basic_rules.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+
+bool isDesktop() {
+  return Platform.isMacOS || Platform.isWindows || Platform.isLinux;
+}
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -34,13 +40,17 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             Expanded(
-              child: ClipRRect(
+              child: Container(
+                width: isDesktop() ? 800 : null,
                 clipBehavior: Clip.hardEdge,
-                child: GameWidget(
-                  game: Checkgames(
-                    context: context,
-                    rules: BasicRules(),
-                    onGameOver: _onGameOver,
+                decoration: const BoxDecoration(),
+                child: Center(
+                  child: GameWidget(
+                    game: Checkgames(
+                      context: context,
+                      rules: BasicRules(),
+                      onGameOver: _onGameOver,
+                    ),
                   ),
                 ),
               ),
