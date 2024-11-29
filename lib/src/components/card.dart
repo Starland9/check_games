@@ -2,10 +2,10 @@ import 'dart:math';
 
 import 'package:check_games/src/checkgames.dart';
 import 'package:check_games/src/components/hand.dart';
+import 'package:check_games/src/utils/audio.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
-import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 
 enum CardColor { red, black }
@@ -71,20 +71,22 @@ class CardComponent extends SpriteComponent
 
   @override
   void render(Canvas canvas) {
-    double borderWidth = 2;
-    Color borderColor = Colors.black87;
+    if (!isBack) {
+      double borderWidth = 2;
+      Color borderColor = Colors.black38;
 
-    canvas.drawRect(
-      Rect.fromLTWH(
-        -borderWidth,
-        0,
-        size.x,
-        size.y,
-      ),
-      Paint()
-        ..color = borderColor
-        ..strokeWidth = borderWidth,
-    );
+      canvas.drawRect(
+        Rect.fromLTWH(
+          -borderWidth,
+          0,
+          size.x,
+          size.y,
+        ),
+        Paint()
+          ..color = borderColor
+          ..strokeWidth = borderWidth,
+      );
+    }
 
     super.render(canvas);
   }
@@ -127,7 +129,7 @@ class CardComponent extends SpriteComponent
       LinearEffectController(speed),
     )..removeOnFinish = true;
 
-    if (withSound) FlameAudio.play('sfx/card_share.mp3');
+    if (withSound) AudioUtils.play('sfx/card_share.mp3');
 
     await add(rotationEffect);
     await add(effect);

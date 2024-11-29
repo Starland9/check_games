@@ -1,10 +1,11 @@
 import 'package:check_games/src/screens/home.dart';
 import 'package:flame/flame.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Flame.device.fullScreen();
+  if (!kIsWeb) await Flame.device.fullScreen();
 
   runApp(const MyWidget());
 }

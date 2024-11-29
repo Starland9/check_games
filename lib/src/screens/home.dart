@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:check_games/src/checkgames.dart';
 import 'package:check_games/src/rules/basic_rules.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 bool isDesktop() {
+  if (kIsWeb) return true;
   return Platform.isMacOS || Platform.isWindows || Platform.isLinux;
 }
 
