@@ -19,9 +19,12 @@ class CardComponent extends SpriteComponent
   final CardType type;
   final int value;
 
+  final Function(CardComponent card) onPlay;
+
   CardComponent({
     required this.type,
     required this.value,
+    required this.onPlay,
   });
 
   Vector2 get assetSheetSize => isBack ? Vector2(176, 124) : Vector2(440, 372);
@@ -47,7 +50,7 @@ class CardComponent extends SpriteComponent
   void onTapDown(TapDownEvent event) async {
     switch (container) {
       case CardContainer.hand:
-        await game.playCard(this);
+        onPlay(this);
         break;
       default:
     }

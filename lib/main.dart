@@ -1,4 +1,4 @@
-import 'package:check_games/src/screens/home.dart';
+import 'package:check_games/src/screens/home_screen.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

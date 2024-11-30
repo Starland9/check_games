@@ -1,4 +1,5 @@
 import 'package:check_games/src/checkgames.dart';
+import 'package:check_games/src/components/board.dart';
 import 'package:check_games/src/components/card.dart';
 import 'package:flame/components.dart';
 
@@ -67,7 +68,7 @@ class Hand extends PositionComponent with HasGameRef<Checkgames> {
     _rearangeCards();
   }
 
-  bool get onTop => position.y < game.board.position.y;
+  bool get onTop => position.y < game.size.y / 2;
 
   @override
   bool operator ==(Object other) =>
@@ -77,12 +78,12 @@ class Hand extends PositionComponent with HasGameRef<Checkgames> {
   @override
   int get hashCode => name.hashCode;
 
-  Future<void> shareAtCenter(CardComponent card) async {
+  Future<void> shareAtCenter(Board board, CardComponent card) async {
     card.toggleBack(false);
     inSharing = true;
     removeCard(card);
-    game.board.addCard(card);
-    await card.shareTo(game.board.position);
+    board.addCard(card);
+    await card.shareTo(board.position);
     inSharing = false;
   }
 
@@ -95,5 +96,5 @@ class Hand extends PositionComponent with HasGameRef<Checkgames> {
     return null;
   }
 
-  bool isCPU() => name == 'CPU' && game.withCpu;
+  bool isCPU() => name == "CPU";
 }

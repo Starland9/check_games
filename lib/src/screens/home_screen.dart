@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:check_games/src/checkgames.dart';
-import 'package:check_games/src/rules/basic_rules.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,25 +10,13 @@ bool isDesktop() {
   return Platform.isMacOS || Platform.isWindows || Platform.isLinux;
 }
 
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   const Home({super.key});
-
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Checkgames(
-        context: context,
-      ).backgroundColor(),
+      backgroundColor: Checkgames(context: context).backgroundColor(),
       // appBar: AppBar(
       //   title: const Text('Check Games'),
       //   backgroundColor: Checkgames().backgroundColor(),
@@ -48,11 +35,7 @@ class _HomeState extends State<Home> {
                 decoration: const BoxDecoration(),
                 child: Center(
                   child: GameWidget(
-                    game: Checkgames(
-                      context: context,
-                      rules: BasicRules(),
-                      onGameOver: _onGameOver,
-                    ),
+                    game: Checkgames(context: context),
                   ),
                 ),
               ),
@@ -66,9 +49,5 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
-  }
-
-  void _onGameOver() {
-    setState(() {});
   }
 }

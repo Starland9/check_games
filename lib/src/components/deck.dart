@@ -1,14 +1,19 @@
 import 'package:check_games/src/checkgames.dart';
+import 'package:check_games/src/components/board.dart';
 import 'package:check_games/src/components/card.dart';
 import 'package:check_games/src/components/hand.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 
 class Deck extends PositionComponent with HasGameRef<Checkgames>, TapCallbacks {
-  Deck({required this.cards}) {
+  Deck({
+    required this.cards,
+    required this.onTapD,
+  }) {
     size = CardComponent.assetOneSize;
   }
 
+  final Function onTapD;
   final List<CardComponent> cards;
   bool inSharing = false;
 
@@ -18,16 +23,14 @@ class Deck extends PositionComponent with HasGameRef<Checkgames>, TapCallbacks {
     _initPosition();
     _rearangeCards();
 
-    shareAtCenter();
     super.onLoad();
   }
 
   @override
   void onTapDown(TapDownEvent event) async {
     if (inSharing) return;
-    await shareToHand(game.currentHand);
-    game.toggleHand();
-    await game.cpuPlay();
+    onTapD();
+
     super.onTapDown(event);
   }
 
@@ -55,22 +58,22 @@ class Deck extends PositionComponent with HasGameRef<Checkgames>, TapCallbacks {
     }
   }
 
-  Future<void> shareAtCenter() async {
+  Future<void> shareAtCenter(Board board) async {
     inSharing = true;
     removeCard(card);
-    game.board.addCard(card);
-    await card.shareTo(game.board.position);
+    board.addCard(card);
+    await card.shareTo(board.position);
     inSharing = false;
   }
 
-  Future<void> shareToHand(Hand hand) async {
+  Future<void> shareToHand(Hand hand, Board board) async {
     inSharing = true;
     removeCard(card);
     await card.shareToHand(hand);
     hand.addCard(card);
     inSharing = false;
     if (cards.length == 1) {
-      game.board.refillDeck();
+      board.refillDeck(this);
     }
   }
 
