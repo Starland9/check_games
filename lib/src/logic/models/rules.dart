@@ -1,6 +1,6 @@
-import 'package:check_games/src/checkgames.dart';
-import 'package:check_games/src/components/card.dart';
-import 'package:check_games/src/components/hand.dart';
+import 'package:check_games/src/screens/game/components/card.dart';
+import 'package:check_games/src/screens/game/components/hand.dart';
+import 'package:check_games/src/screens/game/game_screen.dart';
 import 'package:flame/components.dart';
 
 abstract class Rules extends Component with HasGameRef<Checkgames> {

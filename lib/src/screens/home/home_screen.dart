@@ -1,24 +1,19 @@
-import 'dart:io';
-
-import 'package:check_games/src/checkgames.dart';
-import 'package:check_games/src/rules/basic_rules.dart';
+import 'package:auto_route/annotations.dart';
+import 'package:check_games/src/logic/rules/basic_rules.dart';
+import 'package:check_games/src/screens/game/game_screen.dart';
+import 'package:check_games/src/utils/common.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-bool isDesktop() {
-  if (kIsWeb) return true;
-  return Platform.isMacOS || Platform.isWindows || Platform.isLinux;
-}
-
-class Home extends StatefulWidget {
-  const Home({super.key});
+@RoutePage()
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();

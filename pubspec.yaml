@@ -40,21 +40,35 @@ dependencies:
   firebase_core: ^3.8.0
   freezed_annotation: ^2.4.4
   json_annotation: ^4.9.0
+  flutter_svg: ^2.0.16
+  auto_route: ^9.2.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^4.0.0
   rename: ^3.0.2
   build_runner: ^2.4.13
   freezed: ^2.5.7
   json_serializable: ^6.9.0
+  flutter_gen_runner: ^5.8.0
+  auto_route_generator: ^9.0.0
+
+flutter_gen:
+  output: lib/gen/ # Optional (default: lib/gen/)
+  line_length: 80 # Optional (default: 80)
+
+  assets:
+    exclude:
+      - assets/images/cards/**
+      - assets/audio/**
+
+  # Optional
+  integrations:
+    flutter_svg: true
+    # flare_flutter: true
+    # rive: true
+    # lottie: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -71,6 +85,7 @@ flutter:
     - assets/images/cards/
     - assets/audio/sfx/
     - assets/icon/
+    - assets/images/others/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

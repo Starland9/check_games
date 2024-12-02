@@ -1,5 +1,5 @@
-import 'package:check_games/src/components/card.dart';
-import 'package:check_games/src/models/rules.dart';
+import 'package:check_games/src/screens/game/components/card.dart';
+import 'package:check_games/src/logic/models/rules.dart';
 
 class BasicRules extends Rules {
   @override

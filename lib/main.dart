@@ -1,5 +1,5 @@
 import 'package:check_games/firebase_options.dart';
-import 'package:check_games/src/screens/game/home.dart';
+import 'package:check_games/src/core/routes/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/foundation.dart';
@@ -13,18 +13,19 @@ void main() async {
   );
 
   if (!kIsWeb) await Flame.device.fullScreen();
-
-  runApp(const MyWidget());
+  runApp(CartomaniaApp());
 }
 
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
+class CartomaniaApp extends StatelessWidget {
+  CartomaniaApp({super.key});
+
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      routerConfig: _appRouter.config(),
     );
   }
 }
