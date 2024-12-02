@@ -89,4 +89,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'smallapps-da23c.appspot.com',
     measurementId: 'G-MLQW2EQXB5',
   );
+
 }
