@@ -47,7 +47,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       emit(const AuthState.loading());
       await _authRepository.resetPassword(email);
-      emit(const AuthState.success());
+      emit(const AuthState.emailResetSend());
     } catch (e) {
       emit(AuthState.error(e.toString()));
     }

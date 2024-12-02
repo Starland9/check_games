@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthRepository {
   final _auth = FirebaseAuth.instance;
 
-  final _collectionName = 'cg_users';
+  final _collectionName = 'users';
 
   CollectionReference<Map<String, dynamic>> get _collection =>
       FirebaseFirestore.instance.collection(_collectionName);

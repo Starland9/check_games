@@ -25,6 +25,7 @@ mixin _$AuthState {
     required TResult Function() logout,
     required TResult Function() unauthenticated,
     required TResult Function() success,
+    required TResult Function() emailResetSend,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +37,7 @@ mixin _$AuthState {
     TResult? Function()? logout,
     TResult? Function()? unauthenticated,
     TResult? Function()? success,
+    TResult? Function()? emailResetSend,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,6 +49,7 @@ mixin _$AuthState {
     TResult Function()? logout,
     TResult Function()? unauthenticated,
     TResult Function()? success,
+    TResult Function()? emailResetSend,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -59,6 +62,7 @@ mixin _$AuthState {
     required TResult Function(_Logout value) logout,
     required TResult Function(_Unauthenticated value) unauthenticated,
     required TResult Function(_Success value) success,
+    required TResult Function(_EmailResetSend value) emailResetSend,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,6 +74,7 @@ mixin _$AuthState {
     TResult? Function(_Logout value)? logout,
     TResult? Function(_Unauthenticated value)? unauthenticated,
     TResult? Function(_Success value)? success,
+    TResult? Function(_EmailResetSend value)? emailResetSend,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -81,6 +86,7 @@ mixin _$AuthState {
     TResult Function(_Logout value)? logout,
     TResult Function(_Unauthenticated value)? unauthenticated,
     TResult Function(_Success value)? success,
+    TResult Function(_EmailResetSend value)? emailResetSend,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -154,6 +160,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() logout,
     required TResult Function() unauthenticated,
     required TResult Function() success,
+    required TResult Function() emailResetSend,
   }) {
     return initial();
   }
@@ -168,6 +175,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? logout,
     TResult? Function()? unauthenticated,
     TResult? Function()? success,
+    TResult? Function()? emailResetSend,
   }) {
     return initial?.call();
   }
@@ -182,6 +190,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? logout,
     TResult Function()? unauthenticated,
     TResult Function()? success,
+    TResult Function()? emailResetSend,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -200,6 +209,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Logout value) logout,
     required TResult Function(_Unauthenticated value) unauthenticated,
     required TResult Function(_Success value) success,
+    required TResult Function(_EmailResetSend value) emailResetSend,
   }) {
     return initial(this);
   }
@@ -214,6 +224,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Logout value)? logout,
     TResult? Function(_Unauthenticated value)? unauthenticated,
     TResult? Function(_Success value)? success,
+    TResult? Function(_EmailResetSend value)? emailResetSend,
   }) {
     return initial?.call(this);
   }
@@ -228,6 +239,7 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Logout value)? logout,
     TResult Function(_Unauthenticated value)? unauthenticated,
     TResult Function(_Success value)? success,
+    TResult Function(_EmailResetSend value)? emailResetSend,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -327,6 +339,7 @@ class _$UserImpl implements _User {
     required TResult Function() logout,
     required TResult Function() unauthenticated,
     required TResult Function() success,
+    required TResult Function() emailResetSend,
   }) {
     return user(this.user);
   }
@@ -341,6 +354,7 @@ class _$UserImpl implements _User {
     TResult? Function()? logout,
     TResult? Function()? unauthenticated,
     TResult? Function()? success,
+    TResult? Function()? emailResetSend,
   }) {
     return user?.call(this.user);
   }
@@ -355,6 +369,7 @@ class _$UserImpl implements _User {
     TResult Function()? logout,
     TResult Function()? unauthenticated,
     TResult Function()? success,
+    TResult Function()? emailResetSend,
     required TResult orElse(),
   }) {
     if (user != null) {
@@ -373,6 +388,7 @@ class _$UserImpl implements _User {
     required TResult Function(_Logout value) logout,
     required TResult Function(_Unauthenticated value) unauthenticated,
     required TResult Function(_Success value) success,
+    required TResult Function(_EmailResetSend value) emailResetSend,
   }) {
     return user(this);
   }
@@ -387,6 +403,7 @@ class _$UserImpl implements _User {
     TResult? Function(_Logout value)? logout,
     TResult? Function(_Unauthenticated value)? unauthenticated,
     TResult? Function(_Success value)? success,
+    TResult? Function(_EmailResetSend value)? emailResetSend,
   }) {
     return user?.call(this);
   }
@@ -401,6 +418,7 @@ class _$UserImpl implements _User {
     TResult Function(_Logout value)? logout,
     TResult Function(_Unauthenticated value)? unauthenticated,
     TResult Function(_Success value)? success,
+    TResult Function(_EmailResetSend value)? emailResetSend,
     required TResult orElse(),
   }) {
     if (user != null) {
@@ -497,6 +515,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function() logout,
     required TResult Function() unauthenticated,
     required TResult Function() success,
+    required TResult Function() emailResetSend,
   }) {
     return error(message);
   }
@@ -511,6 +530,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? logout,
     TResult? Function()? unauthenticated,
     TResult? Function()? success,
+    TResult? Function()? emailResetSend,
   }) {
     return error?.call(message);
   }
@@ -525,6 +545,7 @@ class _$ErrorImpl implements _Error {
     TResult Function()? logout,
     TResult Function()? unauthenticated,
     TResult Function()? success,
+    TResult Function()? emailResetSend,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -543,6 +564,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function(_Logout value) logout,
     required TResult Function(_Unauthenticated value) unauthenticated,
     required TResult Function(_Success value) success,
+    required TResult Function(_EmailResetSend value) emailResetSend,
   }) {
     return error(this);
   }
@@ -557,6 +579,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function(_Logout value)? logout,
     TResult? Function(_Unauthenticated value)? unauthenticated,
     TResult? Function(_Success value)? success,
+    TResult? Function(_EmailResetSend value)? emailResetSend,
   }) {
     return error?.call(this);
   }
@@ -571,6 +594,7 @@ class _$ErrorImpl implements _Error {
     TResult Function(_Logout value)? logout,
     TResult Function(_Unauthenticated value)? unauthenticated,
     TResult Function(_Success value)? success,
+    TResult Function(_EmailResetSend value)? emailResetSend,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -640,6 +664,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() logout,
     required TResult Function() unauthenticated,
     required TResult Function() success,
+    required TResult Function() emailResetSend,
   }) {
     return loading();
   }
@@ -654,6 +679,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? logout,
     TResult? Function()? unauthenticated,
     TResult? Function()? success,
+    TResult? Function()? emailResetSend,
   }) {
     return loading?.call();
   }
@@ -668,6 +694,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? logout,
     TResult Function()? unauthenticated,
     TResult Function()? success,
+    TResult Function()? emailResetSend,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -686,6 +713,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Logout value) logout,
     required TResult Function(_Unauthenticated value) unauthenticated,
     required TResult Function(_Success value) success,
+    required TResult Function(_EmailResetSend value) emailResetSend,
   }) {
     return loading(this);
   }
@@ -700,6 +728,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Logout value)? logout,
     TResult? Function(_Unauthenticated value)? unauthenticated,
     TResult? Function(_Success value)? success,
+    TResult? Function(_EmailResetSend value)? emailResetSend,
   }) {
     return loading?.call(this);
   }
@@ -714,6 +743,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Logout value)? logout,
     TResult Function(_Unauthenticated value)? unauthenticated,
     TResult Function(_Success value)? success,
+    TResult Function(_EmailResetSend value)? emailResetSend,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -775,6 +805,7 @@ class _$LogoutImpl implements _Logout {
     required TResult Function() logout,
     required TResult Function() unauthenticated,
     required TResult Function() success,
+    required TResult Function() emailResetSend,
   }) {
     return logout();
   }
@@ -789,6 +820,7 @@ class _$LogoutImpl implements _Logout {
     TResult? Function()? logout,
     TResult? Function()? unauthenticated,
     TResult? Function()? success,
+    TResult? Function()? emailResetSend,
   }) {
     return logout?.call();
   }
@@ -803,6 +835,7 @@ class _$LogoutImpl implements _Logout {
     TResult Function()? logout,
     TResult Function()? unauthenticated,
     TResult Function()? success,
+    TResult Function()? emailResetSend,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -821,6 +854,7 @@ class _$LogoutImpl implements _Logout {
     required TResult Function(_Logout value) logout,
     required TResult Function(_Unauthenticated value) unauthenticated,
     required TResult Function(_Success value) success,
+    required TResult Function(_EmailResetSend value) emailResetSend,
   }) {
     return logout(this);
   }
@@ -835,6 +869,7 @@ class _$LogoutImpl implements _Logout {
     TResult? Function(_Logout value)? logout,
     TResult? Function(_Unauthenticated value)? unauthenticated,
     TResult? Function(_Success value)? success,
+    TResult? Function(_EmailResetSend value)? emailResetSend,
   }) {
     return logout?.call(this);
   }
@@ -849,6 +884,7 @@ class _$LogoutImpl implements _Logout {
     TResult Function(_Logout value)? logout,
     TResult Function(_Unauthenticated value)? unauthenticated,
     TResult Function(_Success value)? success,
+    TResult Function(_EmailResetSend value)? emailResetSend,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -910,6 +946,7 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
     required TResult Function() logout,
     required TResult Function() unauthenticated,
     required TResult Function() success,
+    required TResult Function() emailResetSend,
   }) {
     return unauthenticated();
   }
@@ -924,6 +961,7 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
     TResult? Function()? logout,
     TResult? Function()? unauthenticated,
     TResult? Function()? success,
+    TResult? Function()? emailResetSend,
   }) {
     return unauthenticated?.call();
   }
@@ -938,6 +976,7 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
     TResult Function()? logout,
     TResult Function()? unauthenticated,
     TResult Function()? success,
+    TResult Function()? emailResetSend,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -956,6 +995,7 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
     required TResult Function(_Logout value) logout,
     required TResult Function(_Unauthenticated value) unauthenticated,
     required TResult Function(_Success value) success,
+    required TResult Function(_EmailResetSend value) emailResetSend,
   }) {
     return unauthenticated(this);
   }
@@ -970,6 +1010,7 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
     TResult? Function(_Logout value)? logout,
     TResult? Function(_Unauthenticated value)? unauthenticated,
     TResult? Function(_Success value)? success,
+    TResult? Function(_EmailResetSend value)? emailResetSend,
   }) {
     return unauthenticated?.call(this);
   }
@@ -984,6 +1025,7 @@ class _$UnauthenticatedImpl implements _Unauthenticated {
     TResult Function(_Logout value)? logout,
     TResult Function(_Unauthenticated value)? unauthenticated,
     TResult Function(_Success value)? success,
+    TResult Function(_EmailResetSend value)? emailResetSend,
     required TResult orElse(),
   }) {
     if (unauthenticated != null) {
@@ -1045,6 +1087,7 @@ class _$SuccessImpl implements _Success {
     required TResult Function() logout,
     required TResult Function() unauthenticated,
     required TResult Function() success,
+    required TResult Function() emailResetSend,
   }) {
     return success();
   }
@@ -1059,6 +1102,7 @@ class _$SuccessImpl implements _Success {
     TResult? Function()? logout,
     TResult? Function()? unauthenticated,
     TResult? Function()? success,
+    TResult? Function()? emailResetSend,
   }) {
     return success?.call();
   }
@@ -1073,6 +1117,7 @@ class _$SuccessImpl implements _Success {
     TResult Function()? logout,
     TResult Function()? unauthenticated,
     TResult Function()? success,
+    TResult Function()? emailResetSend,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -1091,6 +1136,7 @@ class _$SuccessImpl implements _Success {
     required TResult Function(_Logout value) logout,
     required TResult Function(_Unauthenticated value) unauthenticated,
     required TResult Function(_Success value) success,
+    required TResult Function(_EmailResetSend value) emailResetSend,
   }) {
     return success(this);
   }
@@ -1105,6 +1151,7 @@ class _$SuccessImpl implements _Success {
     TResult? Function(_Logout value)? logout,
     TResult? Function(_Unauthenticated value)? unauthenticated,
     TResult? Function(_Success value)? success,
+    TResult? Function(_EmailResetSend value)? emailResetSend,
   }) {
     return success?.call(this);
   }
@@ -1119,6 +1166,7 @@ class _$SuccessImpl implements _Success {
     TResult Function(_Logout value)? logout,
     TResult Function(_Unauthenticated value)? unauthenticated,
     TResult Function(_Success value)? success,
+    TResult Function(_EmailResetSend value)? emailResetSend,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -1130,4 +1178,145 @@ class _$SuccessImpl implements _Success {
 
 abstract class _Success implements AuthState {
   const factory _Success() = _$SuccessImpl;
+}
+
+/// @nodoc
+abstract class _$$EmailResetSendImplCopyWith<$Res> {
+  factory _$$EmailResetSendImplCopyWith(_$EmailResetSendImpl value,
+          $Res Function(_$EmailResetSendImpl) then) =
+      __$$EmailResetSendImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$EmailResetSendImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$EmailResetSendImpl>
+    implements _$$EmailResetSendImplCopyWith<$Res> {
+  __$$EmailResetSendImplCopyWithImpl(
+      _$EmailResetSendImpl _value, $Res Function(_$EmailResetSendImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AuthState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$EmailResetSendImpl implements _EmailResetSend {
+  const _$EmailResetSendImpl();
+
+  @override
+  String toString() {
+    return 'AuthState.emailResetSend()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$EmailResetSendImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(AppUser user) user,
+    required TResult Function(String message) error,
+    required TResult Function() loading,
+    required TResult Function() logout,
+    required TResult Function() unauthenticated,
+    required TResult Function() success,
+    required TResult Function() emailResetSend,
+  }) {
+    return emailResetSend();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(AppUser user)? user,
+    TResult? Function(String message)? error,
+    TResult? Function()? loading,
+    TResult? Function()? logout,
+    TResult? Function()? unauthenticated,
+    TResult? Function()? success,
+    TResult? Function()? emailResetSend,
+  }) {
+    return emailResetSend?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(AppUser user)? user,
+    TResult Function(String message)? error,
+    TResult Function()? loading,
+    TResult Function()? logout,
+    TResult Function()? unauthenticated,
+    TResult Function()? success,
+    TResult Function()? emailResetSend,
+    required TResult orElse(),
+  }) {
+    if (emailResetSend != null) {
+      return emailResetSend();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_User value) user,
+    required TResult Function(_Error value) error,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Logout value) logout,
+    required TResult Function(_Unauthenticated value) unauthenticated,
+    required TResult Function(_Success value) success,
+    required TResult Function(_EmailResetSend value) emailResetSend,
+  }) {
+    return emailResetSend(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_User value)? user,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Logout value)? logout,
+    TResult? Function(_Unauthenticated value)? unauthenticated,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_EmailResetSend value)? emailResetSend,
+  }) {
+    return emailResetSend?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_User value)? user,
+    TResult Function(_Error value)? error,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Logout value)? logout,
+    TResult Function(_Unauthenticated value)? unauthenticated,
+    TResult Function(_Success value)? success,
+    TResult Function(_EmailResetSend value)? emailResetSend,
+    required TResult orElse(),
+  }) {
+    if (emailResetSend != null) {
+      return emailResetSend(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EmailResetSend implements AuthState {
+  const factory _EmailResetSend() = _$EmailResetSendImpl;
 }

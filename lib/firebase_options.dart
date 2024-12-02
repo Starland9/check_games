@@ -41,53 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDwDnPhE6cDqNs4sZJdcsoJ4JE6WeV_5BI',
-    appId: '1:285342174001:web:446c2482f109b52d757e10',
-    messagingSenderId: '285342174001',
-    projectId: 'smallapps-da23c',
-    authDomain: 'smallapps-da23c.firebaseapp.com',
-    storageBucket: 'smallapps-da23c.appspot.com',
-    measurementId: 'G-3V0P94WPLL',
+    apiKey: 'AIzaSyDw7b0nA6ByT0sjUU_bHUAgFl3X05-aExg',
+    appId: '1:31047527245:web:0ef08884aaaf2a6b21a504',
+    messagingSenderId: '31047527245',
+    projectId: 'cartomania-9',
+    authDomain: 'cartomania-9.firebaseapp.com',
+    storageBucket: 'cartomania-9.firebasestorage.app',
+    measurementId: 'G-LY5CFRTQVR',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDwTT2NK9G0JnuXjehf66caY0MC16gRxrs',
-    appId: '1:285342174001:android:d5b0ee153437939f757e10',
-    messagingSenderId: '285342174001',
-    projectId: 'smallapps-da23c',
-    storageBucket: 'smallapps-da23c.appspot.com',
+    apiKey: 'AIzaSyBCLRSXpjqOOpnOUr6A9SmuDyg1BKY1yXs',
+    appId: '1:31047527245:android:22ea38641dd4880c21a504',
+    messagingSenderId: '31047527245',
+    projectId: 'cartomania-9',
+    storageBucket: 'cartomania-9.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAcwo_bt5Q4uo23QK4e6nlR7nCWDYiPD00',
-    appId: '1:285342174001:ios:14a5deea0e43e994757e10',
-    messagingSenderId: '285342174001',
-    projectId: 'smallapps-da23c',
-    storageBucket: 'smallapps-da23c.appspot.com',
-    androidClientId: '285342174001-34rjcb0s8c25o82em6bhlha6m227rl7d.apps.googleusercontent.com',
-    iosClientId: '285342174001-abpvifpa62g5ue06aojq0mo6ks2dbts1.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDqKt3QBZ24w9oAv-NenZIVUVvD7kh3I_4',
+    appId: '1:31047527245:ios:e6ac1cf57319fc3b21a504',
+    messagingSenderId: '31047527245',
+    projectId: 'cartomania-9',
+    storageBucket: 'cartomania-9.firebasestorage.app',
     iosBundleId: 'com.starland.cartomania',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAcwo_bt5Q4uo23QK4e6nlR7nCWDYiPD00',
-    appId: '1:285342174001:ios:14a5deea0e43e994757e10',
-    messagingSenderId: '285342174001',
-    projectId: 'smallapps-da23c',
-    storageBucket: 'smallapps-da23c.appspot.com',
-    androidClientId: '285342174001-34rjcb0s8c25o82em6bhlha6m227rl7d.apps.googleusercontent.com',
-    iosClientId: '285342174001-abpvifpa62g5ue06aojq0mo6ks2dbts1.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDqKt3QBZ24w9oAv-NenZIVUVvD7kh3I_4',
+    appId: '1:31047527245:ios:e6ac1cf57319fc3b21a504',
+    messagingSenderId: '31047527245',
+    projectId: 'cartomania-9',
+    storageBucket: 'cartomania-9.firebasestorage.app',
     iosBundleId: 'com.starland.cartomania',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBOfMQNljjn4hmBViCJCcIclQNDF7YcoYY',
-    appId: '1:285342174001:web:6aeb3a331b29ab2c757e10',
-    messagingSenderId: '285342174001',
-    projectId: 'smallapps-da23c',
-    authDomain: 'smallapps-da23c.firebaseapp.com',
-    storageBucket: 'smallapps-da23c.appspot.com',
-    measurementId: 'G-MLQW2EQXB5',
+    apiKey: 'AIzaSyDw7b0nA6ByT0sjUU_bHUAgFl3X05-aExg',
+    appId: '1:31047527245:web:fcc02a064b83a3b221a504',
+    messagingSenderId: '31047527245',
+    projectId: 'cartomania-9',
+    authDomain: 'cartomania-9.firebaseapp.com',
+    storageBucket: 'cartomania-9.firebasestorage.app',
+    measurementId: 'G-BM01K1GDQK',
   );
 
 }

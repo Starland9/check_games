@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:check_games/src/core/routes/app_router.gr.dart';
+import 'package:check_games/src/logic/cubits/cubit/auth_cubit.dart';
 import 'package:check_games/src/screens/auth/components/auth_logo.dart';
 import 'package:check_games/src/screens/auth/components/password_field.dart';
+import 'package:check_games/src/shared/components/sh_loader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
@@ -69,12 +72,35 @@ class _LoginScreenState extends State<LoginScreen> {
                   passwordController: _passwordController,
                   label: "Mot de passe",
                 ),
-                SizedBox(height: 32.h),
-                FilledButton(
-                  onPressed: () {
-                    if (_formKey.currentState?.validate() ?? false) {}
+                Row(
+                  children: [
+                    const Spacer(),
+                    TextButton(
+                      onPressed: () =>
+                          context.router.push(const ForgotPasswordRoute()),
+                      child: const Text("Mot de passe oublié ?"),
+                    ),
+                  ],
+                ),
+                BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      loading: () => const ShLoader(),
+                      orElse: () {
+                        return FilledButton(
+                          onPressed: () {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              context.read<AuthCubit>().login(
+                                    _emailController.text,
+                                    _passwordController.text,
+                                  );
+                            }
+                          },
+                          child: const Text("Se connecter"),
+                        );
+                      },
+                    );
                   },
-                  child: const Text("Se connecter"),
                 ),
                 SizedBox(height: 8.h),
                 Row(

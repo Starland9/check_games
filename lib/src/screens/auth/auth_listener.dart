@@ -23,6 +23,13 @@ class AuthListener extends StatelessWidget {
           error: (message) {
             DialogUtils.showAlertDialog(context: context, content: message);
           },
+          emailResetSend: () {
+            DialogUtils.showAlertDialog(
+              context: context,
+              content: "Un email de reinitialisation a ete envoyé",
+            );
+            context.router.maybePop();
+          },
           orElse: () {},
         );
       },
