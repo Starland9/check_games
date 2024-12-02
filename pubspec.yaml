@@ -47,6 +47,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   animate_do: ^3.3.4
   google_fonts: ^6.2.1
+  form_builder_validators: ^11.0.0
 
 dev_dependencies:
   flutter_test:

@@ -49,6 +49,11 @@ class CartomaniaApp extends StatelessWidget {
                 ),
               ),
             ),
+            inputDecorationTheme: InputDecorationTheme(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+            ),
           ),
           routerConfig: _appRouter.config(),
         );
