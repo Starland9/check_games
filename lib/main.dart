@@ -1,5 +1,5 @@
 import 'package:check_games/firebase_options.dart';
-import 'package:check_games/src/screens/home.dart';
+import 'package:check_games/src/screens/game/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flame/flame.dart';
 import 'package:flutter/foundation.dart';
