@@ -1,5 +1,5 @@
 import 'package:check_games/src/screens/game/components/card.dart';
-import 'package:check_games/src/screens/game/game_screen.dart';
+import 'package:check_games/src/screens/game/checkgames.dart';
 import 'package:flame/components.dart';
 
 class Hand extends PositionComponent with HasGameRef<Checkgames> {

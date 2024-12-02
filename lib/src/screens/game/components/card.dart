@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:check_games/src/screens/game/components/hand.dart';
-import 'package:check_games/src/screens/game/game_screen.dart';
+import 'package:check_games/src/screens/game/checkgames.dart';
 import 'package:check_games/src/utils/audio.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';

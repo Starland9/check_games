@@ -1,6 +1,6 @@
 import 'package:check_games/src/screens/game/components/card.dart';
 import 'package:check_games/src/screens/game/components/hand.dart';
-import 'package:check_games/src/screens/game/game_screen.dart';
+import 'package:check_games/src/screens/game/checkgames.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 

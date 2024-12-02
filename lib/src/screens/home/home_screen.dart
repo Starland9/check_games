@@ -1,5 +1,10 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:check_games/gen/assets.gen.dart';
+import 'package:check_games/src/screens/auth/components/auth_logo.dart';
+import 'package:check_games/src/screens/game/checkgames.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
@@ -17,6 +22,42 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 32.w),
+        height: ScreenUtil().screenHeight,
+        width: ScreenUtil().screenWidth,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: Assets.others.pokerBg.image().image,
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Row(),
+            const AuthLogo(),
+            const Text(
+              "Cartomania",
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(height: 32.h),
+            FilledButton(
+              onPressed: () => context.router.pushWidget(
+                GameWidget(
+                  game: Checkgames(context: context),
+                ),
+              ),
+              child: const Text("Jouer"),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
