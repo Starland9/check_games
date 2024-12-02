@@ -13,10 +13,10 @@ class AuthCubit extends Cubit<AuthState> {
       : _authRepository = authRepository,
         super(const AuthState.initial());
 
-  Future<void> register(String email, String password) async {
+  Future<void> register(String name, String email, String password) async {
     try {
       emit(const AuthState.loading());
-      final user = await _authRepository.register(email, password);
+      final user = await _authRepository.register(name, email, password);
       emit(AuthState.user(user));
     } catch (e) {
       emit(AuthState.error(e.toString()));

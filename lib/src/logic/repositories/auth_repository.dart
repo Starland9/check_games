@@ -11,6 +11,7 @@ class AuthRepository {
       FirebaseFirestore.instance.collection(_collectionName);
 
   Future<AppUser> register(
+    String name,
     String email,
     String password,
   ) async {
@@ -24,7 +25,7 @@ class AuthRepository {
       throw Exception('User not found');
     }
 
-    final appUser = AppUser.fromFireAuthUser(user);
+    final appUser = AppUser.fromFireAuthUser(user).copyWith(username: name);
     await _collection.doc(appUser.id).set(appUser.toJson());
     return appUser;
   }

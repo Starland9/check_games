@@ -1,8 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:check_games/src/core/routes/app_router.gr.dart';
+import 'package:check_games/src/logic/cubits/cubit/auth_cubit.dart';
 import 'package:check_games/src/screens/auth/components/auth_logo.dart';
 import 'package:check_games/src/screens/auth/components/password_field.dart';
+import 'package:check_games/src/shared/components/sh_loader.dart';
+import 'package:check_games/src/utils/dialog_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
@@ -87,12 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   label: "Confirmer le mot de passe",
                 ),
                 SizedBox(height: 32.h),
-                FilledButton(
-                  onPressed: () {
-                    if (_formKey.currentState?.validate() ?? false) {}
-                  },
-                  child: const Text("S'inscrire"),
-                ),
+                _buildSumbit(),
                 SizedBox(height: 8.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -109,6 +108,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  BlocBuilder<AuthCubit, AuthState> _buildSumbit() {
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, state) {
+        return state.maybeWhen(
+          loading: () => const ShLoader(),
+          orElse: () {
+            return FilledButton(
+              onPressed: () {
+                if (_passwordController.text !=
+                    _passwordConfirmController.text) {
+                  DialogUtils.showAlertDialog(
+                    context: context,
+                    content: "Les mots de passe ne correspondent pas",
+                  );
+                  return;
+                }
+
+                if (_formKey.currentState?.validate() ?? false) {
+                  context.read<AuthCubit>().register(
+                        _nameController.text,
+                        _emailController.text,
+                        _passwordController.text,
+                      );
+                }
+              },
+              child: const Text("S'inscrire"),
+            );
+          },
+        );
+      },
     );
   }
 }
