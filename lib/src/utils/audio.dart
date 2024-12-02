@@ -12,7 +12,9 @@ class AudioUtils {
         await FlameAudio.play(url);
       }
     } on Exception catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 }

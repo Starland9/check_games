@@ -43,6 +43,8 @@ dependencies:
   flutter_svg: ^2.0.16
   auto_route: ^9.2.2
   flutter_screenutil: ^5.9.3
+  firebase_auth: ^5.3.3
+  flutter_bloc: ^8.1.6
 
 dev_dependencies:
   flutter_test:
@@ -86,7 +88,7 @@ flutter:
     - assets/images/cards/
     - assets/audio/sfx/
     - assets/icon/
-    - assets/images/others/
+    - assets/others/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

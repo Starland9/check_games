@@ -26,19 +26,12 @@ class $AssetsIconGen {
   List<AssetGenImage> get values => [cartomanioLogo, logo];
 }
 
-class $AssetsImagesGen {
-  const $AssetsImagesGen();
+class $AssetsOthersGen {
+  const $AssetsOthersGen();
 
-  /// Directory path: assets/images/others
-  $AssetsImagesOthersGen get others => const $AssetsImagesOthersGen();
-}
-
-class $AssetsImagesOthersGen {
-  const $AssetsImagesOthersGen();
-
-  /// File path: assets/images/others/casino-cards-svgrepo-com.svg
+  /// File path: assets/others/casino-cards-svgrepo-com.svg
   SvgGenImage get casinoCardsSvgrepoCom =>
-      const SvgGenImage('assets/images/others/casino-cards-svgrepo-com.svg');
+      const SvgGenImage('assets/others/casino-cards-svgrepo-com.svg');
 
   /// List of all assets
   List<SvgGenImage> get values => [casinoCardsSvgrepoCom];
@@ -48,7 +41,7 @@ class Assets {
   Assets._();
 
   static const $AssetsIconGen icon = $AssetsIconGen();
-  static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsOthersGen others = $AssetsOthersGen();
 }
 
 class AssetGenImage {
