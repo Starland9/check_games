@@ -57,7 +57,7 @@ class AuthRepository {
     await _auth.sendPasswordResetEmail(email: email);
   }
 
-  Future<AppUser> getCurrentUser() async {
+  Future<AppUser?> getCurrentUser() async {
     final user = _auth.currentUser;
     if (user == null) {
       throw Exception('User not found');

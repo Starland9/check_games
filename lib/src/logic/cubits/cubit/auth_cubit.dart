@@ -13,11 +13,14 @@ class AuthCubit extends Cubit<AuthState> {
       : _authRepository = authRepository,
         super(const AuthState.initial());
 
+  AppUser? user;
+
   Future<void> register(String name, String email, String password) async {
     try {
       emit(const AuthState.loading());
-      final user = await _authRepository.register(name, email, password);
-      emit(AuthState.user(user));
+      final result = await _authRepository.register(name, email, password);
+      user = result;
+      emit(AuthState.user(user!));
     } catch (e) {
       emit(AuthState.error(e.toString()));
     }
@@ -26,8 +29,9 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> login(String email, String password) async {
     try {
       emit(const AuthState.loading());
-      final user = await _authRepository.login(email, password);
-      emit(AuthState.user(user));
+      final result = await _authRepository.login(email, password);
+      user = result;
+      emit(AuthState.user(user!));
     } catch (e) {
       emit(AuthState.error(e.toString()));
     }
@@ -37,6 +41,7 @@ class AuthCubit extends Cubit<AuthState> {
     try {
       emit(const AuthState.loading());
       await _authRepository.logout();
+      user = null;
       emit(const AuthState.unauthenticated());
     } catch (e) {
       emit(AuthState.error(e.toString()));
@@ -50,6 +55,16 @@ class AuthCubit extends Cubit<AuthState> {
       emit(const AuthState.emailResetSend());
     } catch (e) {
       emit(AuthState.error(e.toString()));
+    }
+  }
+
+  Future<AppUser?> getCurrentUser() async {
+    try {
+      final result = await _authRepository.getCurrentUser();
+      return user = result;
+    } catch (e) {
+      emit(AuthState.error(e.toString()));
+      return null;
     }
   }
 }
