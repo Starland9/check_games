@@ -74,7 +74,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             if (_formKey.currentState?.validate() ?? false) {
                               context
                                   .read<AuthCubit>()
-                                  .resetPassword(_emailController.text);
+                                  .resetPassword(_emailController.text.trim());
                             }
                           },
                           child: const Text("Recevoir le lien"),

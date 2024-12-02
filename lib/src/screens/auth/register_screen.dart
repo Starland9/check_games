@@ -130,8 +130,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 if (_formKey.currentState?.validate() ?? false) {
                   context.read<AuthCubit>().register(
-                        _nameController.text,
-                        _emailController.text,
+                        _nameController.text.trim(),
+                        _emailController.text.trim(),
                         _passwordController.text,
                       );
                 }
