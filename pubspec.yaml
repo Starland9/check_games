@@ -42,6 +42,7 @@ dependencies:
   json_annotation: ^4.9.0
   flutter_svg: ^2.0.16
   auto_route: ^9.2.2
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:
