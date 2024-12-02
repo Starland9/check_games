@@ -126,8 +126,16 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "9.0.0"
+  awesome_dialog:
+    dependency: "direct main"
+    description:
+      name: awesome_dialog
+      sha256: "41c41ae4b30b5c7f26bb3d9f9c87010ed1cab0bb4d4ac0cc513e5799c37e9d82"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.1"
   bloc:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: bloc
       sha256: "106842ad6569f0b60297619e9e0b1885c2fb9bf84812935490e6c5275777804e"
@@ -230,6 +238,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+  cloud_firestore:
+    dependency: "direct main"
+    description:
+      name: cloud_firestore
+      sha256: d5b73c5f27d95504e45d96e793fe9f9daa62e42b22da85b9f8de4916f46e916d
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.5.0"
+  cloud_firestore_platform_interface:
+    dependency: transitive
+    description:
+      name: cloud_firestore_platform_interface
+      sha256: "8d5a3a501f3b21638199819ab76709d3b87abc9a565ed611b13a238611cfba27"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.5.0"
+  cloud_firestore_web:
+    dependency: transitive
+    description:
+      name: cloud_firestore_web
+      sha256: "24f302e4ffd88ec2891e33f432b53f59ebd072664c5dc804b7fcbc51ea22b4b3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.3.4"
   code_builder:
     dependency: transitive
     description:
@@ -834,6 +866,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  rive:
+    dependency: transitive
+    description:
+      name: rive
+      sha256: b32e1b2d57be094ba3aa353cb97f24beeebdc2fd71cff8ed351eaf4e555c3e24
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.13.19"
+  rive_common:
+    dependency: transitive
+    description:
+      name: rive_common
+      sha256: "07b0d1f5bd139dd01d95cadf51fcd52b9dad9661a3b3fef734ff1ecb42dfbaaf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.14"
   shelf:
     dependency: transitive
     description:

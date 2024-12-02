@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'app_user.freezed.dart';
@@ -14,4 +15,11 @@ class AppUser with _$AppUser {
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>
       _$AppUserFromJson(json);
+
+  factory AppUser.fromFireAuthUser(User user) => AppUser(
+        id: user.uid,
+        email: user.email ?? '',
+        username: user.displayName ?? '',
+        imageUrl: user.photoURL,
+      );
 }

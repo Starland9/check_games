@@ -48,6 +48,9 @@ dependencies:
   animate_do: ^3.3.4
   google_fonts: ^6.2.1
   form_builder_validators: ^11.0.0
+  bloc: ^8.1.4
+  cloud_firestore: ^5.5.0
+  awesome_dialog: ^3.2.1
 
 dev_dependencies:
   flutter_test:

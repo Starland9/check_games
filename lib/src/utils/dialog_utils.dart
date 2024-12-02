@@ -1,4 +1,3 @@
-import 'package:check_games/src/utils/audio.dart';
 import 'package:flutter/material.dart';
 
 class DialogUtils {
@@ -7,7 +6,7 @@ class DialogUtils {
     String? title,
     required String content,
   }) async {
-    AudioUtils.play('sfx/wrong.mp3');
+    // AudioUtils.play('sfx/wrong.mp3');
     await showDialog(
       context: context,
       builder: (BuildContext context) {
