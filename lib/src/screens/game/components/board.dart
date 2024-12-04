@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:check_games/src/logic/models/card/card.dart';
 import 'package:check_games/src/screens/game/components/card.dart';
 import 'package:check_games/src/screens/game/checkgames.dart';
 import 'package:flame/components.dart';

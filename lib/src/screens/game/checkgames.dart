@@ -1,30 +1,34 @@
 import 'dart:async';
 
+import 'package:check_games/src/logic/models/app_game/app_game.dart';
+import 'package:check_games/src/logic/models/app_user/app_user.dart';
+import 'package:check_games/src/logic/models/rules.dart';
 import 'package:check_games/src/screens/game/components/board.dart';
 import 'package:check_games/src/screens/game/components/card.dart';
 import 'package:check_games/src/screens/game/components/deck.dart';
 import 'package:check_games/src/screens/game/components/hand.dart';
-import 'package:check_games/src/logic/models/rules.dart';
 import 'package:check_games/src/utils/dialog_utils.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Card;
 
 class Checkgames extends FlameGame with TapDetector {
   final BuildContext context;
   final VoidCallback? onGameOver;
   final Rules? rules;
-  final bool withCpu;
+  final AppGame game;
+  final List<AppUser> users;
 
   Checkgames({
     required this.context,
     this.onGameOver,
     this.rules,
-    this.withCpu = true,
+    required this.game,
+    required this.users,
   });
 
   @override
-  Color backgroundColor() => const Color(0xff008080);
+  Color backgroundColor() => Colors.transparent;
 
   late final Hand topHand;
   late final Hand bottomHand;
@@ -68,14 +72,8 @@ class Checkgames extends FlameGame with TapDetector {
   }
 
   Future<void> _fillCards() async {
-    for (var i = 1; i <= 13; i++) {
-      for (var type in CardType.values) {
-        final card = CardComponent(
-          value: i,
-          type: type,
-        );
-        cards.add(card);
-      }
+    for (var card in game.cards) {
+      cards.add(CardComponent(card: card));
     }
 
     cards.shuffle();
@@ -181,4 +179,6 @@ class Checkgames extends FlameGame with TapDetector {
       currentHand = forceHand;
     }
   }
+
+  bool get withCpu => game.players.length == 1;
 }

@@ -1,5 +1,6 @@
-import 'package:check_games/src/screens/game/components/card.dart';
+import 'package:check_games/src/logic/models/card/card.dart';
 import 'package:check_games/src/screens/game/checkgames.dart';
+import 'package:check_games/src/screens/game/components/card.dart';
 import 'package:flame/components.dart';
 
 class Hand extends PositionComponent with HasGameRef<Checkgames> {
@@ -95,5 +96,9 @@ class Hand extends PositionComponent with HasGameRef<Checkgames> {
     return null;
   }
 
-  bool isCPU() => name == 'CPU' && game.withCpu;
+  bool isCPU() {
+    print(game.withCpu);
+
+    return name == 'CPU' && game.withCpu;
+  }
 }

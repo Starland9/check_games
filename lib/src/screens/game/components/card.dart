@@ -1,32 +1,23 @@
 import 'dart:math';
 
-import 'package:check_games/src/screens/game/components/hand.dart';
+import 'package:check_games/src/logic/models/card/card.dart';
 import 'package:check_games/src/screens/game/checkgames.dart';
+import 'package:check_games/src/screens/game/components/hand.dart';
 import 'package:check_games/src/utils/audio.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
-import 'package:flutter/material.dart';
-
-enum CardColor { red, black }
-
-enum CardType { clubs, diamonds, hearts, spades }
-
-enum CardContainer { hand, board, deck }
+import 'package:flutter/material.dart' hide Card;
 
 class CardComponent extends SpriteComponent
     with HasGameRef<Checkgames>, TapCallbacks {
-  final CardType type;
-  final int value;
+  final Card card;
 
-  CardComponent({
-    required this.type,
-    required this.value,
-  });
+  CardComponent({required this.card});
 
   Vector2 get assetSheetSize => isBack ? Vector2(176, 124) : Vector2(440, 372);
   static Vector2 assetSheetPosition = Vector2(0, 0);
-  static Vector2 assetOneSize = Vector2(88, 124);
+  static Vector2 assetOneSize = Vector2(88 * 0.8, 124 * 0.8);
   int get assetsPerRow => isBack ? 2 : 5;
   int get assetsTotal => isBack ? 2 : 13;
 
@@ -59,7 +50,7 @@ class CardComponent extends SpriteComponent
       sprite = await Sprite.load(
         'cards/back.png',
         srcPosition: Vector2(0, 0),
-        srcSize: assetOneSize,
+        srcSize: assetOneSize / 0.8,
       );
       return;
     } else {
@@ -140,4 +131,7 @@ class CardComponent extends SpriteComponent
   Future<void> shareToHand(Hand hand) async {
     await shareTo(hand.position);
   }
+
+  CardType get type => card.type;
+  int get value => card.value;
 }

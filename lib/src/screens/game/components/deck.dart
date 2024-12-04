@@ -1,6 +1,7 @@
+import 'package:check_games/src/logic/models/card/card.dart';
+import 'package:check_games/src/screens/game/checkgames.dart';
 import 'package:check_games/src/screens/game/components/card.dart';
 import 'package:check_games/src/screens/game/components/hand.dart';
-import 'package:check_games/src/screens/game/checkgames.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 
@@ -61,6 +62,7 @@ class Deck extends PositionComponent with HasGameRef<Checkgames>, TapCallbacks {
     game.board.addCard(card);
     await card.shareTo(game.board.position);
     inSharing = false;
+    print(card.card);
   }
 
   Future<void> shareToHand(Hand hand) async {

@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:check_games/src/logic/cubits/cubit/auth_cubit.dart';
+import 'package:check_games/src/logic/cubits/auth/auth_cubit.dart';
 import 'package:check_games/src/screens/auth/components/auth_logo.dart';
 import 'package:check_games/src/shared/components/sh_loader.dart';
 import 'package:flutter/material.dart';

@@ -1,9 +1,11 @@
-import 'package:check_games/src/screens/game/components/card.dart';
 import 'package:check_games/src/logic/models/rules.dart';
+import 'package:check_games/src/screens/game/components/card.dart';
 
 class BasicRules extends Rules {
   @override
   bool isCardsCompatible(CardComponent card1, CardComponent card2) {
+    print("card1 ${card1.card}");
+    print("card2 ${card2.card}");
     if (card1.value == 11) {
       return true;
     }
