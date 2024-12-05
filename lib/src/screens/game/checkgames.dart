@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:math';
 
+import 'package:check_games/src/logic/extensions/users.dart';
 import 'package:check_games/src/logic/models/app_game/app_game.dart';
 import 'package:check_games/src/logic/models/app_user/app_user.dart';
 import 'package:check_games/src/logic/models/rules.dart';
@@ -14,14 +16,16 @@ import 'package:flutter/material.dart' hide Card;
 
 class Checkgames extends FlameGame with TapDetector {
   final BuildContext context;
-  final VoidCallback? onGameOver;
+  final VoidCallback? onRestart;
+  final VoidCallback? onQuit;
   final Rules? rules;
   final AppGame game;
   final List<AppUser> users;
 
   Checkgames({
     required this.context,
-    this.onGameOver,
+    this.onRestart,
+    this.onQuit,
     this.rules,
     required this.game,
     required this.users,
@@ -76,7 +80,7 @@ class Checkgames extends FlameGame with TapDetector {
       cards.add(CardComponent(card: card));
     }
 
-    cards.shuffle();
+    cards.shuffle(Random(game.createdAt.millisecondsSinceEpoch));
     deck = Deck(cards: cards..reversed);
     await add(deck);
     await addAll(cards);
@@ -84,16 +88,13 @@ class Checkgames extends FlameGame with TapDetector {
 
   _initHands() async {
     topHand = Hand(
-      name: "CPU",
+      player: users.last,
       position: Vector2(0, 10),
     );
 
     bottomHand = Hand(
-      name: "Landry",
-      position: Vector2(
-        0,
-        size.y - CardComponent.assetOneSize.y - 10,
-      ),
+      player: users.first,
+      position: Vector2(0, size.y - CardComponent.assetOneSize.y - 10),
     );
 
     await addAll([topHand, bottomHand]);
@@ -141,16 +142,22 @@ class Checkgames extends FlameGame with TapDetector {
   }
 
   Future<void> gameOver() async {
-    await DialogUtils.showAlertDialog(
+    final response = await DialogUtils.showDoubleConfirmDialog(
       context: context,
-      content: "Game Over !!!\n${currentHand.name} a gagné",
+      content: "Game Over !!!\n${currentHand.player.username} a gagné",
+      confirmText: "Rejouer",
+      cancelText: "Quitter",
     );
 
-    onGameOver?.call();
+    if (response == true) {
+      onRestart?.call();
+    } else {
+      onQuit?.call();
+    }
   }
 
   Future<void> cpuPlay() async {
-    if (currentHand.isCPU()) {
+    if (currentHand.isCPU) {
       final playableCards = currentHand.cards.where(
         (card) {
           return rules?.isCardsCompatible(card, board.currentCard) ?? true;
@@ -159,6 +166,7 @@ class Checkgames extends FlameGame with TapDetector {
 
       if (playableCards.isEmpty) {
         await deck.shareToHand(currentHand);
+        if (users.isAllCpu) await applyRule();
       } else {
         final card = playableCards[0];
         await currentHand.shareAtCenter(card);
@@ -180,5 +188,5 @@ class Checkgames extends FlameGame with TapDetector {
     }
   }
 
-  bool get withCpu => game.players.length == 1;
+  bool get withCpu => users.where((x) => x.username.contains("CPU")).isNotEmpty;
 }

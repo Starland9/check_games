@@ -36,16 +36,25 @@ class $AssetsImagesGen {
 class $AssetsOthersGen {
   const $AssetsOthersGen();
 
+  /// File path: assets/others/bot-svgrepo-com.svg
+  SvgGenImage get botSvgrepoCom =>
+      const SvgGenImage('assets/others/bot-svgrepo-com.svg');
+
   /// File path: assets/others/casino-cards-svgrepo-com.svg
   SvgGenImage get casinoCardsSvgrepoCom =>
       const SvgGenImage('assets/others/casino-cards-svgrepo-com.svg');
+
+  /// File path: assets/others/man-user-svgrepo-com.svg
+  SvgGenImage get manUserSvgrepoCom =>
+      const SvgGenImage('assets/others/man-user-svgrepo-com.svg');
 
   /// File path: assets/others/poker_bg.jpg
   AssetGenImage get pokerBg =>
       const AssetGenImage('assets/others/poker_bg.jpg');
 
   /// List of all assets
-  List<dynamic> get values => [casinoCardsSvgrepoCom, pokerBg];
+  List<dynamic> get values =>
+      [botSvgrepoCom, casinoCardsSvgrepoCom, manUserSvgrepoCom, pokerBg];
 }
 
 class $AssetsImagesButtonsGen {

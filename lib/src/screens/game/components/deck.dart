@@ -62,7 +62,6 @@ class Deck extends PositionComponent with HasGameRef<Checkgames>, TapCallbacks {
     game.board.addCard(card);
     await card.shareTo(game.board.position);
     inSharing = false;
-    print(card.card);
   }
 
   Future<void> shareToHand(Hand hand) async {

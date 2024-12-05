@@ -17,7 +17,11 @@ class UserRepository {
   Future<List<AppUser>> getUsersByIds(List<String> ids) async {
     try {
       final docs = await _collection.get();
-      return docs.docs.map((doc) => AppUser.fromJson(doc.data())).toList();
+      return docs.docs
+          .map((doc) => AppUser.fromJson(doc.data()))
+          .toList()
+          .where((e) => ids.contains(e.id))
+          .toList();
     } catch (e) {
       return [];
     }

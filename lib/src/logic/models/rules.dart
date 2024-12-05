@@ -11,23 +11,26 @@ abstract class Rules extends Component with HasGameRef<Checkgames> {
     }
 
     if (await multiShareToOtherPlayer(player, card)) {
-      if (player.isCPU()) {
+      if (player.isCPU) {
         await game.cpuPlay();
       }
-      if (otherPlayer(player).isCPU()) {
+      if (otherPlayer(player).isCPU) {
         game.toggleHand(game.bottomHand);
         return;
       }
     }
 
     if (await stopOtherPlayer(player, card)) {
-      if (player.isCPU()) {
+      if (player.isCPU) {
         await game.cpuPlay();
       }
       return;
     }
     // return null;
     game.toggleHand();
+    if (game.currentHand.isCPU) {
+      await game.cpuPlay();
+    }
   }
 
   Hand otherPlayer(Hand player) =>

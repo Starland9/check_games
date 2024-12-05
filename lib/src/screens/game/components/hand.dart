@@ -1,13 +1,15 @@
+import 'package:check_games/src/logic/models/app_user/app_user.dart';
 import 'package:check_games/src/logic/models/card/card.dart';
 import 'package:check_games/src/screens/game/checkgames.dart';
 import 'package:check_games/src/screens/game/components/card.dart';
 import 'package:flame/components.dart';
 
 class Hand extends PositionComponent with HasGameRef<Checkgames> {
-  final String name;
+  final AppUser player;
+
   Hand({
-    required this.name,
     super.position,
+    required this.player,
   });
 
   List<CardComponent> cards = [];
@@ -22,15 +24,16 @@ class Hand extends PositionComponent with HasGameRef<Checkgames> {
 
   _rearangeCards() {
     int count = 0;
-    int perRow = 10;
+    int perRow = 6;
     double ySpace = 50;
-    double xSpace = 30;
+    double xSpace = 50;
+    int yMax = 4;
 
     if (!onTop) {
       position.y = _startPosition.y - (cards.length ~/ perRow) * ySpace;
     }
 
-    for (double y = 0; y < 3; y++) {
+    for (double y = 0; y < yMax; y++) {
       for (double x = 0; x < perRow; x++) {
         if (count >= cards.length) {
           break;
@@ -73,10 +76,12 @@ class Hand extends PositionComponent with HasGameRef<Checkgames> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Hand && runtimeType == other.runtimeType && name == other.name;
+      other is Hand &&
+          runtimeType == other.runtimeType &&
+          player.id == other.player.id;
 
   @override
-  int get hashCode => name.hashCode;
+  int get hashCode => player.id.hashCode;
 
   Future<void> shareAtCenter(CardComponent card) async {
     card.toggleBack(false);
@@ -96,9 +101,5 @@ class Hand extends PositionComponent with HasGameRef<Checkgames> {
     return null;
   }
 
-  bool isCPU() {
-    print(game.withCpu);
-
-    return name == 'CPU' && game.withCpu;
-  }
+  bool get isCPU => player.isCpu && game.withCpu;
 }

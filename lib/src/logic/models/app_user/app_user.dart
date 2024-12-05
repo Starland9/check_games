@@ -6,12 +6,21 @@ part 'app_user.g.dart';
 
 @freezed
 class AppUser with _$AppUser {
+  AppUser._();
+
   factory AppUser({
     required String id,
     required String email,
     required String username,
     String? imageUrl,
   }) = _AppUser;
+
+  factory AppUser.cpu() => AppUser(
+        id: DateTime.now().toIso8601String(),
+        email: 'cpu',
+        username: 'CPU',
+        imageUrl: '',
+      );
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>
       _$AppUserFromJson(json);
@@ -22,4 +31,6 @@ class AppUser with _$AppUser {
         username: user.displayName ?? '',
         imageUrl: user.photoURL,
       );
+
+  bool get isCpu => email == 'cpu';
 }

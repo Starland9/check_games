@@ -23,4 +23,33 @@ class DialogUtils {
       },
     );
   }
+
+  static Future<bool> showDoubleConfirmDialog({
+    required BuildContext context,
+    String? title,
+    required String content,
+    required String confirmText,
+    required String cancelText,
+  }) async {
+    // AudioUtils.play('sfx/wrong.mp3');
+    return await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title ?? "Confirmation"),
+          content: Text(content),
+          actions: [
+            TextButton(
+              child: Text(cancelText),
+              onPressed: () => Navigator.of(context).pop(false),
+            ),
+            TextButton(
+              child: Text(confirmText),
+              onPressed: () => Navigator.of(context).pop(true),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
