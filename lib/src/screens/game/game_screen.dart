@@ -46,7 +46,6 @@ class _GameScreenState extends State<GameScreen> {
                     color: Colors.white,
                   ),
                   usersLoaded: (users) {
-                    print(users);
                     final goodUsers = users.isEmpty
                         ? [
                             AppUser.cpu(),
