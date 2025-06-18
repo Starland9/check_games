@@ -1,16 +1,63 @@
-# check_games
+# Check Games 🎮
 
-A new Flutter project.
+Jeu de cartes interactif développé avec Flutter et Flame.
 
-## Getting Started
+## 🚀 Fonctionnalités
 
-This project is a starting point for a Flutter application.
+- Interface utilisateur fluide et réactive
+- Gestion des événements tactiles
+- Effets sonores
+- Compatible avec les plateformes mobiles et desktop
 
-A few resources to get you started if this is your first Flutter project:
+## 📱 Plateformes supportées
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Android
+- iOS
+- Web
+- Windows
+- macOS
+- Linux
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🛠️ Prérequis
+
+- Flutter SDK (version recommandée : ^3.5.4)
+- Dart SDK (version recommandée : ^3.0.0)
+- Un éditeur de code (VS Code ou Android Studio recommandé)
+
+## 🚀 Installation
+
+1. Clonez le dépôt :
+   ```bash
+   git clone https://github.com/Starland9/check_games.git
+   cd check_games
+   ```
+
+2. Installez les dépendances :
+   ```bash
+   flutter pub get
+   ```
+
+3. Lancez l'application :
+   ```bash
+   flutter run
+   ```
+
+## 🎮 Comment jouer
+
+1. Lancez l'application
+2. Suivez les instructions à l'écran
+3. Profitez du jeu !
+
+## 📦 Dépendances principales
+
+- `flame`: Moteur de jeu 2D pour Flutter
+- `flame_audio`: Gestion de l'audio
+- `http`: Pour les requêtes réseau (si nécessaire)
+
+## 📝 Licence
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus d'informations.
+
+## 👨‍💻 Auteur
+
+Landry Simo (Starland9)
